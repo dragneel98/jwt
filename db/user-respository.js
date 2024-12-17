@@ -3,7 +3,7 @@ import { z } from 'zod'
 const { Schema } = new DBLocal({ path: './db' })
 
 const User = Schema('User', {
-  id: { type: String, required: true },
+  _id: { type: String, required: true },
   username: { type: String, required: true },
   password: { type: String, required: true }
 })
@@ -26,14 +26,15 @@ export class UserRepository {
       throw new Error('username already exists')
     }
     const id = crypto.randomUUID()
-
+    console.log('Generated ID:', id)
     // Crear el usuario en la DB local
     await User.create({
-      id,
+      _id: id,
       username: parsedData.username,
       password: parsedData.password
     }).save()
-    console.log('User created successfully')
+    
+    return id
   }
 
   static async login ({ username, password }) {
