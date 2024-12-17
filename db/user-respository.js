@@ -33,7 +33,7 @@ export class UserRepository {
       username: parsedData.username,
       password: parsedData.password
     }).save()
-    
+
     return id
   }
 

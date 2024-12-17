@@ -10,21 +10,21 @@ app.get('/', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-  const {username, password} = req.body
+  const { username, password } = req.body
   try {
-    const id = UserRepository.create({username, password})
-    res.send({id})
+    const id = UserRepository.create({ username, password })
+    res.send({ id })
   } catch (error) {
     res.status(400).send(error.message)
   }
 })
 
-app.post('/register', (req, res) => {
-  const {username, password} = req.body
+app.post('/register', async (req, res) => {
+  const { username, password } = req.body
   try {
-    const id = UserRepository.create({username, password})
-    console.log("gg");
-    res.send({id})
+    const id = await UserRepository.create({ username, password })
+    console.log(id, 'gg')
+    res.send({ id })
   } catch (error) {
     res.status(400).send(error.message)
   }
